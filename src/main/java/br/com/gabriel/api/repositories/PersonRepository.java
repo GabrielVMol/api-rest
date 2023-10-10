@@ -5,5 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import br.com.gabriel.api.model.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
-	
 }

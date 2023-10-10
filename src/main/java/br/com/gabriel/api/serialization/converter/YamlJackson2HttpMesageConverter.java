@@ -8,7 +8,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 public class YamlJackson2HttpMesageConverter extends AbstractJackson2HttpMessageConverter{
 
-	public YamlJackson2HttpMesageConverter() {
+	public YamlJackson2HttpMesageConverter() {  // Conversão para x-yaml
 		super(
 			new YAMLMapper()
 				.setSerializationInclusion(

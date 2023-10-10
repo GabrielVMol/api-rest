@@ -19,7 +19,7 @@ import br.com.gabriel.api.exceptions.ResourceNotFoundException;
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler(Exception.class)
-	public final ResponseEntity<ExceptionResponse> handleAllExceptions(
+	public final ResponseEntity<ExceptionResponse> handleAllExceptions( // Resposta personalizado para exceções: 500 HttpStatus.INTERNAL_SERVER_ERROR
 			Exception ex, WebRequest request) {
 		
 		ExceptionResponse exceptionResponse = new ExceptionResponse(
@@ -31,7 +31,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 	}
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public final ResponseEntity<ExceptionResponse> handleNotFoundExceptions(
+	public final ResponseEntity<ExceptionResponse> handleNotFoundExceptions( // Resposta personalizado para exceções: 404 HttpStatus.NOT_FOUND
 			Exception ex, WebRequest request) {
 		
 		ExceptionResponse exceptionResponse = new ExceptionResponse(
@@ -43,7 +43,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 	}
 	
 	@ExceptionHandler(RequiredObjectIsNullException.class)
-	public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(
+	public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions( // Resposta personalizado para exceções: 400 HttpStatus.BAD_REQUEST
 			Exception ex, WebRequest request) {
 		
 		ExceptionResponse exceptionResponse = new ExceptionResponse(

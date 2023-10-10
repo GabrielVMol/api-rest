@@ -24,9 +24,9 @@ public class PersonService {
 	@Autowired
 	PersonRepository repository;
 
-	public List<PersonVO> findAll() {
+	public List<PersonVO> findAll() { // Find All: retorna uma lista de pessoas
 
-		logger.info("Finding all people!");
+		logger.info("Encontrada todas as Pessoas!");
 
 		var persons = DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
 		persons
@@ -35,36 +35,36 @@ public class PersonService {
 		return persons;
 	}
 
-	public PersonVO findById(Long id) {
+	public PersonVO findById(Long id) { // Find by ID: retorna uma pessoa
 		
-		logger.info("Finding one person!");
+		logger.info("Pessoa Encontrada!");
 		
 		var entity = repository.findById(id)
-			.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+			.orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
 		var vo = DozerMapper.parseObject(entity, PersonVO.class);
 		vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
 		return vo;
 	}
 	
-	public PersonVO create(PersonVO person) {
+	public PersonVO create(PersonVO person) { // Create: retorna a pessoa adicionada
 
 		if (person == null) throw new RequiredObjectIsNullException();
 		
-		logger.info("Creating one person!");
+		logger.info("Pessoa Adcionada!");
 		var entity = DozerMapper.parseObject(person, Person.class);
 		var vo =  DozerMapper.parseObject(repository.save(entity), PersonVO.class);
 		vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
 		return vo;
 	}
 	
-	public PersonVO update(PersonVO person) {
+	public PersonVO update(PersonVO person) { // Update: retorna a pessoa atualizada
 
 		if (person == null) throw new RequiredObjectIsNullException();
 		
-		logger.info("Updating one person!");
+		logger.info("Pessoa Atualizada!");
 		
 		var entity = repository.findById(person.getKey())
-			.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+			.orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
 
 		entity.setFirstName(person.getFirstName());
 		entity.setLastName(person.getLastName());
@@ -76,12 +76,12 @@ public class PersonService {
 		return vo;
 	}
 	
-	public void delete(Long id) {
+	public void delete(Long id) { // Delete: Não tem retorno
 		
-		logger.info("Deleting one person!");
+		logger.info("Pessoa Excluida!");
 		
 		var entity = repository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+				.orElseThrow(() -> new ResourceNotFoundException("Nenhum registro encontrado para este ID!"));
 		repository.delete(entity);
 	}
 }
