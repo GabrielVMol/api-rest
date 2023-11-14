@@ -11,7 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.gabriel.api.exceptions.ExceptionResponse;
-import br.com.gabriel.api.exceptions.RequiredObjectIsNullException;
+import br.com.gabriel.api.exceptions.InvalidJwtAuthenticationException;
 import br.com.gabriel.api.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
@@ -42,8 +42,8 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
 	}
 	
-	@ExceptionHandler(RequiredObjectIsNullException.class)
-	public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions( // Resposta personalizado para exceções: 400 HttpStatus.BAD_REQUEST
+	@ExceptionHandler(InvalidJwtAuthenticationException.class)
+	public final ResponseEntity<ExceptionResponse> handleInvalidJwtAuthenticationException( // Resposta personalizado para exceção de autenticação: HttpStatus.FORBIDDEN
 			Exception ex, WebRequest request) {
 		
 		ExceptionResponse exceptionResponse = new ExceptionResponse(
@@ -51,6 +51,6 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 				ex.getMessage(),
 				request.getDescription(false));
 		
-		return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
 	}
 }
